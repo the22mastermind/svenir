@@ -1,3 +1,12 @@
+## Svenir
+
+![CI](https://github.com/the22mastermind/svenir/workflows/CI/badge.svg?branch=ch-project-setup)
+[![Coverage Status](https://coveralls.io/repos/github/the22mastermind/svenir/badge.svg?branch=develop)](https://coveralls.io/github/the22mastermind/svenir?branch=develop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/73aa32940d3e3925fbd9/maintainability)](https://codeclimate.com/github/the22mastermind/svenir/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/73aa32940d3e3925fbd9/test_coverage)](https://codeclimate.com/github/the22mastermind/svenir/test_coverage)
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

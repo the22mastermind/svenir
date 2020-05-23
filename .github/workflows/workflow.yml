@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    name: Test
+    name: Test & Code Coverage
     runs-on: ubuntu-latest
     env:
       NODE_ENV: test
@@ -34,4 +34,18 @@ jobs:
 
     - run: yarn install
     - run: yarn test
-      
+
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
+
+    - name: Code Climate
+      uses: paambaati/codeclimate-action@v2.6.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: npm run coverage
+        debug: true
+
+    - run: yarn coverage
