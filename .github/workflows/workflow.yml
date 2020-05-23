@@ -1,0 +1,51 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - dev
+
+jobs:
+  test:
+    name: Test & Code Coverage
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Get yarn cache
+      id: yarn-cache
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+
+    - uses: actions/cache@v1
+      with:
+        path: ${{ steps.yarn-cache.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - uses: actions/setup-node@v1.1.0
+      with:
+        node-version: '10.x'
+
+    - run: yarn install
+    - run: yarn test
+
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
+
+    - name: Code Climate
+      uses: paambaati/codeclimate-action@v2.6.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: npm run coverage
+        debug: true
+
+    - run: yarn coverage
